@@ -8,10 +8,11 @@ career_stage: [any]
 region: [UK]
 max_gbp: 12500
 fec_percent: 80
-deadline: 2026-11-15
-status: open
+deadline: "15th of every second month, next 2026-11-15"
+status: rolling
 last_checked: 2026-11-02
+next_round: ~
 ---
 
 Mostly national dRTP community activity: networks, mentoring, career events, stakeholder engagement. Staff time
-allowed, equipment not. Deadlines every second month after this one; apply at least three months before the activity.
+allowed, equipment not. Apply at least three months before the activity.

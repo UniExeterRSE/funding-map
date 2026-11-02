@@ -108,18 +108,22 @@ fields:
     type: text
     help: YYYY-MM-DD, "rolling", or a phrase such as "late spring 2027". Empty if not stated.
 
+  - name: next_round
+    label: Next round
+    type: text
+    help: When the funder expects the next call, e.g. "annual call, opens August" or "round 2, late spring 2027". Empty if none announced.
+
   - name: status
     label: Status
     type: choice
     required: true
     facet: true
+    help: Open with a date deadline becomes closed by itself once the date passes, at the next build.
     values:
       - id: open
         label: Open
       - id: rolling
         label: Rolling
-      - id: upcoming
-        label: Upcoming / recurring
       - id: closed
         label: Closed
       - id: unknown

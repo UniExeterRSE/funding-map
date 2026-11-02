@@ -11,6 +11,7 @@ fec_percent: 80
 deadline: rolling
 status: rolling
 last_checked: 2026-11-02
+next_round: ~
 ---
 
 Travel and subsistence to embed in another UK DRI group, in person or remotely. Assessed monthly; everything must be

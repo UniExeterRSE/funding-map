@@ -11,6 +11,7 @@ fec_percent: 80
 deadline: rolling
 status: rolling
 last_checked: 2026-11-02
+next_round: ~
 ---
 
 A 1–3 month placement in a dRTP team at Imperial, King's, UCL or Westminster, covering 80% of salary. Open to staff

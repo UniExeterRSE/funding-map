@@ -11,6 +11,7 @@ fec_percent: 100
 deadline: rolling
 status: rolling
 last_checked: 2026-11-02
+next_round: ~
 ---
 
 Conference fees, courses and certificates, travel, and knowledge-exchange visits, for people early in their career,

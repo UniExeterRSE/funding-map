@@ -11,6 +11,7 @@ fec_percent: ~
 deadline: ~
 status: unknown
 last_checked: 2026-11-02
+next_round: ~
 ---
 
 Course fees, travel and accommodation for training not available within GW4, including bespoke software training.

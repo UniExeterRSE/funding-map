@@ -11,6 +11,7 @@ fec_percent: ~
 deadline: ~
 status: unknown
 last_checked: 2026-11-02
+next_round: ~
 ---
 
 Travel, accommodation and facility costs for knowledge exchange with colleagues at another GW4 institution: visits,

@@ -11,6 +11,7 @@ fec_percent: 80
 deadline: 2026-11-12
 status: open
 last_checked: 2026-11-02
+next_round: ~
 ---
 
 Up to five 12-month fellowships, from January 2027, to champion knowledge exchange in a UK DRI community through a

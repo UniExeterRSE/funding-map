@@ -8,9 +8,10 @@ career_stage: [any]
 region: [UK, international]
 max_gbp: 4000
 fec_percent: ~
-deadline: annual, early October
-status: upcoming
+deadline: 2026-10-05
+status: closed
 last_checked: 2026-11-02
+next_round: "annual call: the 2028 cohort is expected to open in August 2027"
 ---
 
 £4,000 to spend flexibly over 15 months on promoting good research software practice, with a community of fellows.
