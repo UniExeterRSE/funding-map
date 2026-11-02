@@ -9,6 +9,7 @@
 #   values:    for choice/choices, each with an id (what goes in the front matter) and a label.
 #   facet:     true to filter on it on the index page.
 #   umbrella:  for a facet, the value that matches whatever is selected, e.g. region UK matches a search for GW4.
+#   empty:     what an empty value reads as on the page, if not "not stated".
 #   help:      one line for contributors.
 #
 # Adding a field: add it here, then `pixi run add-field <name> [default]` adds it to every opportunity.
@@ -111,6 +112,7 @@ fields:
   - name: next_round
     label: Next round
     type: text
+    empty: none announced
     help: When the funder expects the next call, e.g. "annual call, opens August" or "round 2, late spring 2027". Empty if none announced.
 
   - name: status

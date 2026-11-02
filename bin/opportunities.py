@@ -4,6 +4,10 @@
 Run by Quarto after a render (project.post-render), it writes opportunities.json into the output directory, holding
 the schema's fields and one item per opportunity; any invalid opportunity fails the render. With --check it only
 validates, which is what CI and contributors run.
+
+An opportunity whose status is open but whose deadline date has passed is written as closed, so the site does not
+go stale between edits: filters/opportunity.lua does the same on its page, and the weekly build in CI picks up the
+change of date.
 """
 
 from __future__ import annotations
@@ -70,7 +74,13 @@ def errors(meta: dict, fields: list[dict]) -> list[str]:
     return out
 
 
+def deadline_passed(meta: dict, today: str) -> bool:
+    deadline = meta.get("deadline")
+    return isinstance(deadline, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", deadline) is not None and deadline < today
+
+
 def main() -> int:
+    today = dt.date.today().isoformat()
     fields = load_schema()
     items, failed = [], False
     for path in sorted((SRC / "opportunities").glob("*.md")):
@@ -83,6 +93,10 @@ def main() -> int:
         for p in problems:
             print(f"{rel}: {p}", file=sys.stderr)
             failed = True
+        if not problems and meta.get("status") == "open" and deadline_passed(meta, today):
+            print(f"{rel}: deadline {meta['deadline']} has passed, so it shows as closed; set status and next_round",
+                  file=sys.stderr)
+            meta["status"] = "closed"
         items.append({**meta, "href": rel.with_suffix(".html").as_posix()})
     if failed:
         return 1

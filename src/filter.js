@@ -29,7 +29,8 @@
   root.append(search, form, count, list);
 
   const statusOrder = (it) => byName.status?.values.findIndex((v) => v.id === it.status) ?? 0;
-  items.sort((a, b) => statusOrder(a) - statusOrder(b) || a.title.localeCompare(b.title));
+  // Open first; among the closed, those with a next round expected before those without.
+  items.sort((a, b) => statusOrder(a) - statusOrder(b) || !a.next_round - !b.next_round || a.title.localeCompare(b.title));
 
   const render = () => {
     const selected = Object.fromEntries(facets.map((f) =>
@@ -60,6 +61,9 @@
       return el("li", {},
         el("a", { className: "title", href: it.href }, it.title),
         el("div", { className: "meta" }, facts),
+        it.status === "closed"
+          ? el("div", { className: "meta signpost" }, it.next_round ? `Next round: ${it.next_round}` : "No next round announced yet")
+          : null,
         el("div", {}, ...asList(it.purpose).map((p) => el("span", { className: "tag" }, labelOf(byName.purpose, p)))));
     }));
   };
