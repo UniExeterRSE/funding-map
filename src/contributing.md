@@ -36,7 +36,8 @@ region: [UK]                       # where applicants must be based
 max_gbp: ~                         # ~ means not stated
 fec_percent: 80
 deadline: rolling                  # YYYY-MM-DD, rolling, or a phrase
-status: rolling                    # open | rolling | upcoming | closed | unknown
+next_round: ~                      # if closed: when the next call is expected; ~ if none announced
+status: rolling                    # open | rolling | closed | unknown
 last_checked: 2026-11-02
 ---
 
@@ -56,5 +57,9 @@ value not in it, so the filter never shows a misspelling.
   default, into every opportunity. Mark it `facet: true` to filter on it.
 
 ## Out of date?
+
+An opportunity that is `open` with a date deadline shows as closed by itself once the date passes (the site rebuilds
+weekly), saying "no next round announced" unless `next_round` says otherwise. So when a call closes, the useful edit
+is to fill in `next_round` if the funder has said when the next one is.
 
 Details change. If one is wrong, use *Edit this page* on it, fix it, and update `last_checked`.
