@@ -1,0 +1,22 @@
+[workspace]
+name = "funding-map"
+version = "0.1.0"
+description = "A map of funding open to UK research software engineers and digital research technical professionals"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64"]
+
+[dependencies]
+quarto = "*"
+# bin/opportunities.py: validates the front matter against src/schema.yml and writes opportunities.json.
+python = ">=3.12"
+pyyaml = "*"
+
+[activation]
+env = { QUARTO_PORT = "8008" }
+
+[tasks]
+build = { cmd = "quarto render", cwd = "src", description = "Render the site into src/docs" }
+preview = { cmd = "quarto preview src --port $QUARTO_PORT --host 0.0.0.0", description = "Live preview on port QUARTO_PORT" }
+check = { cmd = "python bin/opportunities.py --check", description = "Validate every opportunity's front matter against src/schema.yml, without rendering" }
+add-field = { cmd = "python bin/add-field.py", description = "Add a new front-matter field to every opportunity: add-field <name> [default]" }
+new = { cmd = "python bin/new.py", description = "Start a new opportunity from the schema: new <file-stem>" }

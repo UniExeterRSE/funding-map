@@ -1,0 +1,4 @@
+.pixi/
+src/docs/
+src/.quarto/
+__pycache__/

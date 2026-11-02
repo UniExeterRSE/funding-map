@@ -1,0 +1,107 @@
+/*-- scss:defaults --*/
+
+// TeX Gyre Schola — the @font-face comes from font.kolen.dev, linked in _quarto.yml
+$font-family-base: 'TeX Gyre Schola', Georgia, 'Times New Roman', serif;
+$headings-font-family: $font-family-base;
+$font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace;
+$line-height-base: 1.45;
+$font-size-base: 1.0625rem;
+
+// Flatly and darkly @import Google Fonts' Lato, which nothing here is set in.
+$web-font-path: false;
+
+/*-- scss:rules --*/
+
+.page-columns .column-body,
+#quarto-content article {
+  max-width: 72ch;
+}
+
+p {
+  hyphens: auto;
+}
+
+code {
+  font-size: 0.9em;
+}
+
+// The facts table at the top of an opportunity (filters/opportunity.lua).
+table.opportunity-facts {
+  width: auto;
+  th {
+    padding-right: 1.5em;
+    font-weight: normal;
+    opacity: 0.75;
+    white-space: nowrap;
+  }
+}
+
+// The filter on index.md (filter.js).
+.facets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin-bottom: 1rem;
+
+  fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  legend {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin-bottom: 0.25rem;
+    float: none;
+  }
+}
+
+.chip {
+  display: inline-block;
+  border: 1px solid rgba($primary, 0.4);
+  border-radius: 1em;
+  padding: 0 0.6em;
+  margin: 0 0.25em 0.3em 0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+
+  input {
+    display: none;
+  }
+  &:has(input:checked) {
+    background: $primary;
+    border-color: $primary;
+    color: $white;
+  }
+}
+
+.search {
+  width: min(100%, 24em);
+  margin-bottom: 1rem;
+}
+
+.opportunity-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    border-left: 4px solid rgba($primary, 0.5);
+    padding: 0.4rem 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  .title {
+    font-weight: bold;
+  }
+  .meta {
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+  .tag {
+    font-size: 0.75rem;
+    border: 1px solid rgba($primary, 0.3);
+    border-radius: 1em;
+    padding: 0 0.5em;
+    margin-right: 0.25em;
+  }
+}
