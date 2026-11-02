@@ -1,0 +1,3 @@
+# Destinations that block automated link checkers although the links work in a browser. Exclude them here rather
+# than accepting 403 everywhere, since a real 403 elsewhere should still fail the check.
+exclude = []

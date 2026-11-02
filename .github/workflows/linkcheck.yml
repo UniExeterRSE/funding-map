@@ -1,0 +1,24 @@
+name: External link check
+
+# Funders move and retire their pages, so check every link weekly and on demand. Third-party hosts rate-limit and
+# bot-wall CI runners at random, so this gates nothing: a red run means look, not that the site is broken. Exclude
+# a host that always refuses the runner in lychee.toml.
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: prefix-dev/setup-pixi@v0.11.3
+        with:
+          pixi-version: v0.81.0
+          cache: true
+      - run: pixi run build
+      - run: pixi run linkcheck

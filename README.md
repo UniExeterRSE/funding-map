@@ -17,9 +17,13 @@ opportunity in `src/opportunities/`, its front matter defined by `src/schema.yml
 - `.github/workflows/deploy.yml` builds on every pull request and publishes `main` to GitHub Pages.
 
 ```sh
-pixi run check     # validate
-pixi run build     # render into src/docs
-pixi run preview   # live preview
+pixi run check               # validate the front matter
+pixi run build               # render into src/docs
+pixi run serve               # serve src/docs as is
+pixi run preview             # live preview, re-rendering on save
+pixi run linkcheck-internal  # offline; blocking in CI
+pixi run linkcheck           # external too; weekly in CI, gates nothing
+pixi run clean
 ```
 
 The theme follows [blog.kolen.dev](https://blog.kolen.dev).

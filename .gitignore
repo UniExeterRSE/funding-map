@@ -1,4 +1,6 @@
-.pixi/
+# pixi environments
+.pixi/*
+!.pixi/config.toml
 src/docs/
 src/.quarto/
 __pycache__/

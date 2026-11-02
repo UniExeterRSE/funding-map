@@ -31,6 +31,10 @@ jobs:
       # Also runs bin/opportunities.py after the render, which writes opportunities.json.
       - name: Render
         run: pixi run build
+      # Offline and takes milliseconds, so a third party cannot turn it red; external links are checked by
+      # linkcheck.yml, which gates nothing.
+      - name: Check internal links
+        run: pixi run linkcheck-internal
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5.0.0
         with:
