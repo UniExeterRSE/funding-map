@@ -13,7 +13,7 @@ pyyaml = "*"
 lychee = "*"
 
 [activation]
-env = { QUARTO_PORT = "8008" }
+env = { QUARTO_PORT = "55213" }
 
 [tasks]
 build = { cmd = "quarto render", cwd = "src", description = "Render the site into src/docs" }
