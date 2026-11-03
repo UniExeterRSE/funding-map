@@ -1,0 +1,37 @@
+# This site's own settings, merged on top of the shared `_quarto.yml` from
+# https://github.com/ickc/quarto-template (see there for how the two combine).
+project:
+  output-dir: docs
+  render:
+    - "*.md"
+    - "opportunities/*.md"
+  # Loaded by index.md from a <script> tag, which Quarto does not discover.
+  resources:
+    - filter.js
+  # Validates every opportunity against schema.yml and writes opportunities.json, which index.md's filter reads.
+  # A failed validation fails the render.
+  post-render:
+    - ../bin/opportunities.py
+
+website:
+  title: "RSE Funding Map"
+  site-url: "https://uniexeterrse.github.io/funding-map"
+  description: "Funding open to UK research software engineers and digital research technical professionals"
+  repo-url: https://github.com/UniExeterRSE/funding-map
+  repo-subdir: src
+  repo-actions: [edit, issue]
+  navbar:
+    left:
+      - href: index.md
+        text: Find funding
+      - href: contributing.md
+        text: Add one
+    right:
+      - icon: github
+        href: https://github.com/UniExeterRSE/funding-map
+        aria-label: GitHub
+
+format:
+  html:
+    # The pages are a filterable list and short records, not long reading.
+    toc: false
