@@ -65,9 +65,18 @@ table.opportunity-facts {
   font-size: 0.85rem;
   cursor: pointer;
   user-select: none;
+  position: relative;
 
+  // Visually hidden but still focusable and announced, so the chips work from a keyboard and a screen reader.
   input {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+  &:has(input:focus-visible) {
+    outline: 2px solid $primary;
+    outline-offset: 2px;
   }
   &:has(input:checked) {
     background: $primary;
