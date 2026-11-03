@@ -1,7 +1,7 @@
 // The filter on index.md. Its facets come from the fields src/schema.yml marks `facet: true`, and its items from
 // opportunities.json, which bin/opportunities.py writes after every render. Within a facet, ticked values are
 // alternatives (OR); across facets, all must match (AND). A field's `umbrella` value matches any selection, so an
-// opportunity open UK-wide shows for a search for GW4. The selection is kept in the URL, so it can be shared.
+// opportunity open UK-wide shows for a search for GW4, though not for one for a value marked `exact`. The selection is kept in the URL, so it can be shared.
 (async () => {
   const root = document.getElementById("funding-filter");
   const { fields, items } = await (await fetch("opportunities.json")).json();
@@ -41,7 +41,8 @@
       facets.every((f) => {
         const want = selected[f.name];
         const have = asList(it[f.name]);
-        return want.size === 0 || have.some((v) => want.has(v) || v === f.umbrella);
+        const umbrellaCovers = [...want].some((w) => !f.values.find((v) => v.id === w)?.exact);
+        return want.size === 0 || have.some((v) => want.has(v) || (v === f.umbrella && umbrellaCovers));
       }));
 
     const hash = new URLSearchParams();

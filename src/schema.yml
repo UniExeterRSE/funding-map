@@ -8,7 +8,8 @@
 #   required:  true if the field must have a value. Otherwise it may be empty (`~`), meaning "not stated".
 #   values:    for choice/choices, each with an id (what goes in the front matter) and a label.
 #   facet:     true to filter on it on the index page.
-#   umbrella:  for a facet, the value that matches whatever is selected, e.g. region UK matches a search for GW4.
+#   umbrella:  for a facet, the value that matches whatever is selected, e.g. region UK matches a search for GW4,
+#              except a value marked `exact: true`, which only matches itself.
 #   empty:     what an empty value reads as on the page, if not "not stated".
 #   help:      one line for contributors.
 #
@@ -89,6 +90,8 @@ fields:
         label: UK-wide
       - id: international
         label: Outside the UK too
+        # UK-wide does not mean open to applicants abroad.
+        exact: true
       - id: GW4
         label: GW4 (Bath, Bristol, Cardiff, Exeter)
       - id: London
