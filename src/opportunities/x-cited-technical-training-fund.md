@@ -12,6 +12,7 @@ deadline: ~
 status: unknown
 last_checked: 2026-11-02
 next_round: ~
+form: grant
 ---
 
 Course fees, travel and accommodation for training not available within GW4, including bespoke software training.

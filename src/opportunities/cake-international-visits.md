@@ -12,6 +12,7 @@ deadline: rolling
 status: rolling
 last_checked: 2026-11-02
 next_round: ~
+form: grant
 ---
 
 Travel and subsistence to visit collaborators overseas, or to host them in the UK. Same application and terms as

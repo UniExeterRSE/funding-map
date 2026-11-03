@@ -12,6 +12,7 @@ deadline: 2026-11-23
 next_round: ~
 status: ~
 last_checked: 2026-11-03
+form: place
 ---
 
 A year-long cohort for dRTPs building expertise in the performance analysis of research software: a free, self-paced

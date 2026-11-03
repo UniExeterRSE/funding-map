@@ -12,6 +12,7 @@ deadline: 2026-11-19
 next_round: ~
 status: ~
 last_checked: 2026-11-03
+form: grant
 ---
 
 Speakers, facilitators and modest catering for professional development activities that early career staff or PGRs

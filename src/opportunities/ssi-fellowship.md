@@ -12,6 +12,7 @@ deadline: 2026-10-05
 status: ~
 last_checked: 2026-11-02
 next_round: "annual call: the 2028 cohort is expected to open in August 2027"
+form: grant
 ---
 
 £4,000 to spend flexibly over 15 months on promoting good research software practice, with a community of fellows.

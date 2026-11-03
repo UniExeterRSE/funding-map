@@ -40,6 +40,18 @@ fields:
     required: true
     help: The page for this opportunity, not the scheme's home page, where there is one.
 
+  - name: form
+    label: What you get
+    type: choice
+    required: true
+    facet: true
+    help: grant if you choose how to spend it on your own plan; place if it is a funded place on a set programme or event.
+    values:
+      - id: grant
+        label: Money for your own plan
+      - id: place
+        label: A funded place on a set programme or event
+
   - name: purpose
     label: Pays for
     type: choices

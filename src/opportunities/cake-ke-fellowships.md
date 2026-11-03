@@ -12,6 +12,7 @@ deadline: 2026-11-12
 status: ~
 last_checked: 2026-11-02
 next_round: ~
+form: grant
 ---
 
 Up to five 12-month fellowships, from January 2027, to champion knowledge exchange in a UK DRI community through a

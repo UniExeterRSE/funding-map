@@ -4,7 +4,8 @@ description: "One file per opportunity; the filter picks it up."
 ---
 
 Know a fund, bursary, placement or fellowship open to UK research software engineers, data scientists or other digital
-research technical professionals? Add it. Concise beats complete: readers follow the link for details.
+research technical professionals, or a funded place on a set programme or event (a workshop with travel paid, say)?
+Add it. Concise beats complete: readers follow the link for details.
 
 ## One opportunity, one file
 
@@ -30,6 +31,7 @@ title: "CAKE Workshops & Events"   # the call, not just the scheme
 scheme: CAKE                       # shared by sibling calls
 funder: CAKE (UKRI Digital Research Infrastructure)
 url: https://www.cake.ac.uk/about/placements/
+form: grant                        # grant: money for your own plan; place: a funded place on a set programme
 purpose: [conference, training]    # what it pays for
 career_stage: [any, student]
 region: [UK]                       # where applicants must be based
