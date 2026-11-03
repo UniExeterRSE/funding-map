@@ -1,29 +1,9 @@
+// This site's own styles, loaded after `shared.scss` from
+// https://github.com/ickc/quarto-template.
+
 /*-- scss:defaults --*/
 
-// TeX Gyre Schola — the @font-face comes from font.kolen.dev, linked in _quarto.yml
-$font-family-base: 'TeX Gyre Schola', Georgia, 'Times New Roman', serif;
-$headings-font-family: $font-family-base;
-$font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace;
-$line-height-base: 1.45;
-$font-size-base: 1.0625rem;
-
-// Flatly and darkly @import Google Fonts' Lato, which nothing here is set in.
-$web-font-path: false;
-
 /*-- scss:rules --*/
-
-.page-columns .column-body,
-#quarto-content article {
-  max-width: 72ch;
-}
-
-p {
-  hyphens: auto;
-}
-
-code {
-  font-size: 0.9em;
-}
 
 // The facts table at the top of an opportunity (filters/opportunity.lua).
 table.opportunity-facts {
