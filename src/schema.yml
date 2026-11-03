@@ -96,6 +96,8 @@ fields:
         label: GW4 (Bath, Bristol, Cardiff, Exeter)
       - id: London
         label: London
+      - id: Exeter
+        label: University of Exeter only
 
   - name: max_gbp
     label: Up to (£)
