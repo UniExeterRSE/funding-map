@@ -12,6 +12,7 @@ deadline: 2026-02-25
 status: ~
 last_checked: 2026-11-02
 next_round: ~
+form: grant
 ---
 
 Funds maintenance of existing research software, starting with an expression of interest. Round 2 closed in

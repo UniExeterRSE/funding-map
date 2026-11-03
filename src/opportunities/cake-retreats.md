@@ -12,6 +12,7 @@ deadline: rolling
 status: rolling
 last_checked: 2026-11-02
 next_round: ~
+form: grant
 ---
 
 Community-proposed, themed 3–4 day retreats that produce shared outputs such as white papers or reports. Five are

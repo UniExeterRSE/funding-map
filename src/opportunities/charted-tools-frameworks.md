@@ -12,6 +12,7 @@ deadline: ~
 status: closed
 last_checked: 2026-11-02
 next_round: "round 2, expected late spring 2027"
+form: grant
 ---
 
 New tools for navigating dRTP skills and careers: self-assessment, navigation, CPD approaches, best-practice
