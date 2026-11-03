@@ -97,13 +97,13 @@ fields:
     required: true
     facet: true
     umbrella: UK
-    help: Where applicants must be based. UK matches every region on the filter.
+    help: Where applicants must be based, not where the money takes them. UK matches every region on the filter.
     values:
       - id: UK
         label: UK-wide
       - id: international
-        label: Outside the UK too
-        # UK-wide does not mean open to applicants abroad.
+        label: Applicants abroad
+        # Applicants based outside the UK may apply; UK-wide does not mean that. Not travel abroad: that is purpose.
         exact: true
       - id: GW4
         label: GW4 (Bath, Bristol, Cardiff, Exeter)
