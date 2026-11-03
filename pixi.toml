@@ -1,0 +1,35 @@
+[workspace]
+name = "funding-map"
+version = "0.1.0"
+description = "A map of funding open to UK research software engineers and digital research technical professionals"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64"]
+
+[dependencies]
+quarto = "*"
+# bin/opportunities.py: validates the front matter against src/schema.yml and writes opportunities.json.
+python = ">=3.12"
+pyyaml = "*"
+lychee = "*"
+
+[activation]
+env = { QUARTO_PORT = "55213" }
+
+[tasks]
+build = { cmd = "quarto render", cwd = "src", description = "Render the site into src/docs" }
+preview = { cmd = "quarto preview src --port $QUARTO_PORT --host 0.0.0.0", description = "Live preview on port QUARTO_PORT: quarto re-renders what you save" }
+# Plain static server over the last render, without quarto's preview harness.
+# Re-render a changed document with `quarto render src/<file>.md`.
+serve = { cmd = "python3 -m http.server $QUARTO_PORT -d src/docs", description = "Serve the rendered site in src/docs on port QUARTO_PORT, as is" }
+clean = { cmd = "bash bin/clean.sh", description = "Remove all generated files (Quarto output and cache)" }
+
+# Internal links only, and entirely offline. --remap rewrites absolute self-links onto the rendered tree. There is
+# deliberately no --root-dir: the site lives under /funding-map/, so a root-relative link (/foo.html) would break
+# there, and lychee reporting it as an error is what we want. Blocking in CI.
+linkcheck-internal = { cmd = 'lychee --offline --no-ignore --remap "https://uniexeterrse\.github\.io/funding-map file://$PIXI_PROJECT_ROOT/src/docs" src/docs', description = "Check internal links in the rendered site, offline. Blocking in CI." }
+# Reaches third-party hosts, so it is flaky by nature (bot walls, 429s) and gates nothing; but funders move their
+# pages, so CI runs it weekly to catch an opportunity whose link has rotted.
+linkcheck = { cmd = 'lychee --no-ignore --accept "100..=299, 429" --remap "https://uniexeterrse\.github\.io/funding-map file://$PIXI_PROJECT_ROOT/src/docs" --exclude-loopback --max-redirects 10 -v src/docs', description = "Check all links in the rendered site via lychee, including external." }
+check = { cmd = "python bin/opportunities.py --check", description = "Validate every opportunity's front matter against src/schema.yml, without rendering" }
+add-field = { cmd = "python bin/add-field.py", description = "Add a new front-matter field to every opportunity: add-field <name> [default]" }
+new = { cmd = "python bin/new.py", description = "Start a new opportunity from the schema: new <file-stem>" }

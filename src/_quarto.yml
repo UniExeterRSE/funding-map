@@ -1,0 +1,46 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.md"
+    - "opportunities/*.md"
+  # Loaded by index.md from a <script> tag, which Quarto does not discover.
+  resources:
+    - filter.js
+  # Validates every opportunity against schema.yml and writes opportunities.json, which index.md's filter reads.
+  # A failed validation fails the render.
+  post-render:
+    - ../bin/opportunities.py
+
+website:
+  title: "RSE Funding Map"
+  site-url: "https://uniexeterrse.github.io/funding-map"
+  description: "Funding open to UK research software engineers and digital research technical professionals"
+  repo-url: https://github.com/UniExeterRSE/funding-map
+  repo-subdir: src
+  repo-actions: [edit, issue]
+  navbar:
+    left:
+      - href: index.md
+        text: Find funding
+      - href: contributing.md
+        text: Add one
+    right:
+      - icon: github
+        href: https://github.com/UniExeterRSE/funding-map
+        aria-label: GitHub
+
+format:
+  html:
+    theme:
+      light: [flatly, custom.scss]
+      dark: [darkly, custom.scss]
+    respect-user-color-scheme: true
+    toc: false
+    # TeX Gyre Schola, named in custom.scss, served by https://font.kolen.dev. Both preconnects are needed: the font
+    # fetches are anonymous-mode CORS and use a different connection pool from the stylesheet request.
+    include-in-header:
+      - text: |
+          <link rel="preconnect" href="https://font.kolen.dev">
+          <link rel="preconnect" href="https://font.kolen.dev" crossorigin>
+          <link rel="stylesheet" href="https://font.kolen.dev/assets/faces.css">

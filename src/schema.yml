@@ -1,0 +1,141 @@
+# The front matter of an opportunity (src/opportunities/*.md). The one place a field is defined: bin/opportunities.py
+# validates every opportunity against it and builds the filter's data from it, filters/opportunity.lua shows each
+# page's details from it, and the filter on index.md takes its facets from it. Fields are shown in this order.
+#
+# A field has:
+#   name, label
+#   type:      text | url | number | date (YYYY-MM-DD) | choice (one of `values`) | choices (a list of `values`)
+#   required:  true if the field must have a value. Otherwise it may be empty (`~`), meaning "not stated".
+#   values:    for choice/choices, each with an id (what goes in the front matter) and a label.
+#   facet:     true to filter on it on the index page.
+#   umbrella:  for a facet, the value that matches whatever is selected, e.g. region UK matches a search for GW4,
+#              except a value marked `exact: true`, which only matches itself.
+#   empty:     what an empty value reads as on the page, if not "not stated".
+#   help:      one line for contributors.
+#
+# Adding a field: add it here, then `pixi run add-field <name> [default]` adds it to every opportunity.
+
+fields:
+  - name: title
+    label: Title
+    type: text
+    required: true
+    help: The opportunity itself, e.g. "CAKE Workshops & Events", not just the scheme.
+
+  - name: scheme
+    label: Scheme
+    type: text
+    required: true
+    help: The programme it belongs to, shared by its sibling opportunities, e.g. CAKE.
+
+  - name: funder
+    label: Run by
+    type: text
+    required: true
+
+  - name: url
+    label: Link
+    type: url
+    required: true
+    help: The page for this opportunity, not the scheme's home page, where there is one.
+
+  - name: purpose
+    label: Pays for
+    type: choices
+    required: true
+    facet: true
+    values:
+      - id: conference
+        label: Attending conferences & events
+      - id: training
+        label: Training & courses
+      - id: placement
+        label: Placements & visits
+      - id: fellowship
+        label: Fellowship
+      - id: event
+        label: Organising events
+      - id: community
+        label: Community building
+      - id: project
+        label: Project / software work
+      - id: equipment
+        label: Equipment & facility access
+
+  - name: career_stage
+    label: Career stage
+    type: choices
+    required: true
+    facet: true
+    umbrella: any
+    values:
+      - id: any
+        label: Any
+      - id: early-career
+        label: Early career
+      - id: career-change
+        label: Changing career or returning
+      - id: student
+        label: PhD student
+
+  - name: region
+    label: Open to
+    type: choices
+    required: true
+    facet: true
+    umbrella: UK
+    help: Where applicants must be based. UK matches every region on the filter.
+    values:
+      - id: UK
+        label: UK-wide
+      - id: international
+        label: Outside the UK too
+        # UK-wide does not mean open to applicants abroad.
+        exact: true
+      - id: GW4
+        label: GW4 (Bath, Bristol, Cardiff, Exeter)
+      - id: London
+        label: London
+
+  - name: max_gbp
+    label: Up to (£)
+    type: number
+    help: The most one application can get. Empty if not stated.
+
+  - name: fec_percent
+    label: Funded at (% FEC)
+    type: number
+    help: The share of full economic cost paid; your institution covers the rest. Empty if not stated.
+
+  - name: deadline
+    label: Deadline
+    type: text
+    help: YYYY-MM-DD, "rolling", or a phrase such as "late spring 2027". Empty if not stated.
+
+  - name: next_round
+    label: Next round
+    type: text
+    empty: none announced
+    help: When the funder expects the next call, e.g. "annual call, opens August" or "round 2, late spring 2027". Empty if none announced.
+
+  - name: status
+    label: Status
+    type: choice
+    required: true
+    facet: true
+    help: Open with a date deadline becomes closed by itself once the date passes, at the next build.
+    values:
+      - id: open
+        label: Open
+      - id: rolling
+        label: Rolling
+      - id: closed
+        label: Closed
+      - id: unknown
+        label: Unknown
+
+  - name: last_checked
+    label: Last checked
+    type: date
+    required: true
+    help: The day someone last checked the details above against the link.

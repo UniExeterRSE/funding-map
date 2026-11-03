@@ -1,0 +1,56 @@
+name: Build and deploy to GitHub Pages
+
+# Every pull request is built, which validates each opportunity against src/schema.yml; only main is deployed.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  # Weekly, so an opportunity whose deadline has passed shows as closed without anyone pushing
+  # (bin/opportunities.py, src/filters/opportunity.lua).
+  schedule:
+    - cron: "0 6 * * 1"
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: prefix-dev/setup-pixi@v0.11.3
+        with:
+          pixi-version: v0.81.0
+          cache: true
+      - name: Validate opportunities
+        run: pixi run check
+      # Also runs bin/opportunities.py after the render, which writes opportunities.json.
+      - name: Render
+        run: pixi run build
+      # Offline and takes milliseconds, so a third party cannot turn it red; external links are checked by
+      # linkcheck.yml, which gates nothing.
+      - name: Check internal links
+        run: pixi run linkcheck-internal
+      # Only main is published, whatever triggered the run: a manual run can be pointed at any branch.
+      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: src/docs
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5.0.1
