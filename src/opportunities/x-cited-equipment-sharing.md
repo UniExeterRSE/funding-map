@@ -7,9 +7,9 @@ purpose: [equipment, placement]
 career_stage: [any]
 region: [GW4]
 max_gbp: ~
-fec_percent: ~
+fec_percent: 100
 deadline: 2026-11-30
-status: open
+status: ~
 last_checked: 2026-11-02
 next_round: ~
 ---

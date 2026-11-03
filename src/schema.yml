@@ -10,6 +10,7 @@
 #   facet:     true to filter on it on the index page.
 #   umbrella:  for a facet, the value that matches whatever is selected, e.g. region UK matches a search for GW4,
 #              except a value marked `exact: true`, which only matches itself.
+#              A value may also be `within` another: GW4 matches a search for Exeter, which is within it.
 #   empty:     what an empty value reads as on the page, if not "not stated".
 #   help:      one line for contributors.
 #
@@ -98,6 +99,7 @@ fields:
         label: London
       - id: Exeter
         label: University of Exeter only
+        within: GW4
 
   - name: max_gbp
     label: Up to (£)
@@ -107,7 +109,8 @@ fields:
   - name: fec_percent
     label: Funded at (% FEC)
     type: number
-    help: The share of full economic cost paid; your institution covers the rest. Empty if not stated.
+    required: true
+    help: The share of full economic cost paid; your institution covers the rest. 100 if the funder does not say.
 
   - name: deadline
     label: Deadline
@@ -123,9 +126,10 @@ fields:
   - name: status
     label: Status
     type: choice
-    required: true
     facet: true
-    help: Open with a date deadline becomes closed by itself once the date passes, at the next build.
+    # Required unless the deadline is a date, and then left empty: bin/opportunities.py, filters/opportunity.lua and
+    # the browser work it out from the deadline, open until the end of that day, closed after.
+    help: Empty (~) if the deadline is a date; it follows from it. Otherwise rolling, closed, unknown, or open.
     values:
       - id: open
         label: Open
