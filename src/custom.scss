@@ -38,31 +38,42 @@ table.opportunity-facts {
 
 .chip {
   display: inline-block;
+  font: inherit;
+  font-size: 0.85rem;
+  color: inherit;
+  background: none;
   border: 1px solid rgba($primary, 0.4);
   border-radius: 1em;
   padding: 0 0.6em;
   margin: 0 0.25em 0.3em 0;
-  font-size: 0.85rem;
   cursor: pointer;
   user-select: none;
-  position: relative;
 
-  // Visually hidden but still focusable and announced, so the chips work from a keyboard and a screen reader.
-  input {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-  }
-  &:has(input:focus-visible) {
+  &:focus-visible {
     outline: 2px solid $primary;
     outline-offset: 2px;
   }
-  &:has(input:checked) {
+  &[data-state="include"] {
     background: $primary;
     border-color: $primary;
     color: $white;
+    &::before {
+      content: "✓ ";
+    }
   }
+  &[data-state="exclude"] {
+    border-style: dashed;
+    text-decoration: line-through;
+    opacity: 0.6;
+    &::before {
+      content: "✕ ";
+    }
+  }
+}
+
+.facets .note {
+  font-size: 0.8rem;
+  opacity: 0.65;
 }
 
 .search {

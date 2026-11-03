@@ -55,7 +55,8 @@ Every field, and every value a list field may take, is defined once in
 value not in it, so the filter never shows a misspelling.
 
 - **A new value** (another region, say): add it to that field's `values` in the schema. It appears on the filter. A
-  region inside another says so, as Exeter is `within: GW4`, so a search for Exeter also finds what is open to GW4.
+  region inside another says so, as Exeter is `within: GW4`: including Exeter on the filter also finds what is open
+  to GW4, and excluding GW4 excludes Exeter too.
 - **A new field**: add it to the schema, then `pixi run add-field <name> [default]` writes it, as `~` (not stated) by
   default, into every opportunity. Mark it `facet: true` to filter on it.
 
