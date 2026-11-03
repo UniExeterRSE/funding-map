@@ -24,5 +24,9 @@ All via Pixi (`pixi.toml`): `check` (validate the front matter), `build`, `serve
 **Don't rebuild the whole site to preview a change.** The author may have a full build in `src/docs/` with
 `pixi run serve` over it. For a change to one opportunity, `quarto render src/opportunities/<file>.md` from `src/`
 is enough: the post-render script reads every opportunity, so `opportunities.json`, and with it the filter, is
-always complete. A change to `_quarto.yml`, `custom.scss` or the filters needs `pixi run build`; ask before running
-it. Don't start `pixi run preview` unprompted.
+always complete. A change to `_quarto-site.yml`, `custom.scss` or the filters needs `pixi run build`; ask before
+running it. Don't start `pixi run preview` unprompted.
+
+`src/_quarto.yml`, `src/shared.scss` and `src/_extensions/copyright-year/` are shared files copied verbatim from
+[ickc/quarto-template](https://github.com/ickc/quarto-template): don't edit them here. The site's own settings are in
+`src/_quarto-site.yml`, merged on top of `src/_quarto.yml`, and its own styles in `src/custom.scss`.
