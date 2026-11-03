@@ -12,15 +12,10 @@ python = ">=3.12"
 pyyaml = "*"
 lychee = "*"
 
-[activation]
-env = { QUARTO_PORT = "55213" }
-
 [tasks]
 build = { cmd = "quarto render", cwd = "src", description = "Render the site into src/docs" }
-preview = { cmd = "quarto preview src --port $QUARTO_PORT --host 0.0.0.0", description = "Live preview on port QUARTO_PORT: quarto re-renders what you save" }
-# Plain static server over the last render, without quarto's preview harness.
+preview = { cmd = "bash -c 'exec quarto preview src ${QUARTO_ARGS---no-serve --no-browser --no-navigate}'", description = "Re-render what you save into the output directory; QUARTO_ARGS (default: --no-serve --no-browser --no-navigate) replaces the flags, empty for quarto's own server" }
 # Re-render a changed document with `quarto render src/<file>.md`.
-serve = { cmd = "python3 -m http.server $QUARTO_PORT -d src/docs", description = "Serve the rendered site in src/docs on port QUARTO_PORT, as is" }
 clean = { cmd = "bash bin/clean.sh", description = "Remove all generated files (Quarto output and cache)" }
 
 # Internal links only, and entirely offline. --remap rewrites absolute self-links onto the rendered tree. There is

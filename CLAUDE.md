@@ -21,8 +21,8 @@ A Quarto website mapping funding open to UK RSEs and other digital research tech
 All via Pixi (`pixi.toml`): `check` (validate the front matter), `build`, `serve`, `preview`, `clean`, `new`,
 `add-field`, `linkcheck-internal`, `linkcheck`.
 
-**Don't rebuild the whole site to preview a change.** The author may have a full build in `src/docs/` with
-`pixi run serve` over it. For a change to one opportunity, `quarto render src/opportunities/<file>.md` from `src/`
+**Don't rebuild the whole site to preview a change.** The author may have a full build in `src/docs/`, served
+as it is. For a change to one opportunity, `quarto render src/opportunities/<file>.md` from `src/`
 is enough: the post-render script reads every opportunity, so `opportunities.json`, and with it the filter, is
 always complete. A change to `_quarto-site.yml`, `custom.scss` or the filters needs `pixi run build`; ask before
 running it. Don't start `pixi run preview` unprompted.
