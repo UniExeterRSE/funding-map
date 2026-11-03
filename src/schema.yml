@@ -110,7 +110,7 @@ fields:
       - id: London
         label: London
       - id: Exeter
-        label: University of Exeter only
+        label: University of Exeter
         within: GW4
 
   - name: max_gbp
