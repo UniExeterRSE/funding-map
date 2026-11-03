@@ -9,7 +9,7 @@ region: [UK]
 max_gbp: 4000
 fec_percent: 80
 deadline: 2026-11-12
-status: open
+status: ~
 last_checked: 2026-11-02
 next_round: ~
 ---

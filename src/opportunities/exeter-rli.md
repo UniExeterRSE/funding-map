@@ -7,10 +7,10 @@ purpose: [event, community, training]
 career_stage: [early-career, student]
 region: [Exeter]
 max_gbp: 2500
-fec_percent: ~
+fec_percent: 100
 deadline: 2026-11-19
 next_round: ~
-status: open
+status: ~
 last_checked: 2026-11-03
 ---
 

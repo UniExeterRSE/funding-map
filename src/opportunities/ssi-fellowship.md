@@ -7,9 +7,9 @@ purpose: [fellowship, community, event, conference]
 career_stage: [any]
 region: [UK, international]
 max_gbp: 4000
-fec_percent: ~
+fec_percent: 100
 deadline: 2026-10-05
-status: closed
+status: ~
 last_checked: 2026-11-02
 next_round: "annual call: the 2028 cohort is expected to open in August 2027"
 ---

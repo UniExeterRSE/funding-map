@@ -5,9 +5,9 @@ Run by Quarto after a render (project.post-render), it writes opportunities.json
 the schema's fields and one item per opportunity; any invalid opportunity fails the render. With --check it only
 validates, which is what CI and contributors run.
 
-An opportunity whose status is open but whose deadline date has passed is written as closed, so the site does not
-go stale between edits: filters/opportunity.lua does the same on its page, and the weekly build in CI picks up the
-change of date.
+An opportunity whose deadline is a date has no status of its own: it is open until the end of that day and closed
+after. This writes the status as of the build; filter.js and the script filters/opportunity.lua puts on each page
+work it out again in the reader's browser, so a deadline passing between builds shows at once.
 """
 
 from __future__ import annotations
@@ -48,8 +48,14 @@ def errors(meta: dict, fields: list[dict]) -> list[str]:
         if name not in meta:
             out.append(f"{name}: missing (use ~ for not stated)")
             continue
+        if name == "status" and is_date(meta.get("deadline")):
+            if value is not None:
+                out.append("status: leave it empty (~), as the deadline is a date: it is open until then, closed after")
+            continue
         if value is None or value == [] or value == "":
-            if f.get("required"):
+            if name == "status":
+                out.append("status: required, unless the deadline is a date")
+            elif f.get("required"):
                 out.append(f"{name}: required")
             continue
         ids = {v["id"] for v in f.get("values", [])}
@@ -74,9 +80,8 @@ def errors(meta: dict, fields: list[dict]) -> list[str]:
     return out
 
 
-def deadline_passed(meta: dict, today: str) -> bool:
-    deadline = meta.get("deadline")
-    return isinstance(deadline, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", deadline) is not None and deadline < today
+def is_date(value) -> bool:
+    return isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value) is not None
 
 
 def main() -> int:
@@ -93,10 +98,8 @@ def main() -> int:
         for p in problems:
             print(f"{rel}: {p}", file=sys.stderr)
             failed = True
-        if not problems and meta.get("status") == "open" and deadline_passed(meta, today):
-            print(f"{rel}: deadline {meta['deadline']} has passed, so it shows as closed; set status and next_round",
-                  file=sys.stderr)
-            meta["status"] = "closed"
+        if not problems and is_date(meta.get("deadline")):
+            meta["status"] = "closed" if meta["deadline"] < today else "open"
         items.append({**meta, "href": rel.with_suffix(".html").as_posix()})
     if failed:
         return 1

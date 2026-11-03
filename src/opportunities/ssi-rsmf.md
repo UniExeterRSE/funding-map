@@ -7,9 +7,9 @@ purpose: [project]
 career_stage: [any]
 region: [UK]
 max_gbp: ~
-fec_percent: ~
+fec_percent: 100
 deadline: 2026-02-25
-status: closed
+status: ~
 last_checked: 2026-11-02
 next_round: ~
 ---

@@ -7,7 +7,7 @@ purpose: [training]
 career_stage: [any]
 region: [GW4]
 max_gbp: 2000
-fec_percent: ~
+fec_percent: 100
 deadline: ~
 status: unknown
 last_checked: 2026-11-02

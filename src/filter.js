@@ -1,7 +1,10 @@
 // The filter on index.md. Its facets come from the fields src/schema.yml marks `facet: true`, and its items from
 // opportunities.json, which bin/opportunities.py writes after every render. Within a facet, ticked values are
 // alternatives (OR); across facets, all must match (AND). A field's `umbrella` value matches any selection, so an
-// opportunity open UK-wide shows for a search for GW4, though not for one for a value marked `exact`. The selection is kept in the URL, so it can be shared.
+// opportunity open UK-wide shows for a search for GW4, though not for one for a value marked `exact`; and a value
+// matches a search for one `within` it, so GW4 shows for a search for Exeter. An opportunity whose deadline is a date
+// is open until the end of that day, UK time, and closed after, worked out here so it never waits for a rebuild.
+// The selection is kept in the URL, so it can be shared.
 (async () => {
   const root = document.getElementById("funding-filter");
   const { fields, items } = await (await fetch("opportunities.json")).json();
@@ -28,6 +31,19 @@
   const list = el("ul", { className: "opportunity-list" });
   root.append(search, form, count, list);
 
+  // Today in the UK, as YYYY-MM-DD.
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Europe/London" });
+  for (const it of items) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(it.deadline ?? "")) it.status = it.deadline < today ? "closed" : "open";
+  }
+  // Whether an opportunity open to `have` is open to someone who searched for `want`.
+  const covers = (f, have, want) => {
+    const valueOf = (id) => f.values.find((v) => v.id === id);
+    if (have === f.umbrella && !valueOf(want)?.exact) return true;
+    for (let w = want; w != null; w = valueOf(w)?.within) if (w === have) return true;
+    return false;
+  };
+
   const statusOrder = (it) => byName.status?.values.findIndex((v) => v.id === it.status) ?? 0;
   // Open first; among the closed, those with a next round expected before those without.
   items.sort((a, b) => statusOrder(a) - statusOrder(b) || !a.next_round - !b.next_round || a.title.localeCompare(b.title));
@@ -41,8 +57,7 @@
       facets.every((f) => {
         const want = selected[f.name];
         const have = asList(it[f.name]);
-        const umbrellaCovers = [...want].some((w) => !f.values.find((v) => v.id === w)?.exact);
-        return want.size === 0 || have.some((v) => want.has(v) || (v === f.umbrella && umbrellaCovers));
+        return want.size === 0 || have.some((h) => [...want].some((w) => covers(f, h, w)));
       }));
 
     const hash = new URLSearchParams();

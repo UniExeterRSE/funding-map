@@ -7,7 +7,7 @@ purpose: [event, community]
 career_stage: [any]
 region: [UK]
 max_gbp: ~
-fec_percent: ~
+fec_percent: 100
 deadline: rolling
 status: rolling
 last_checked: 2026-11-02
